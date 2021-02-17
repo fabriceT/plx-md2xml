@@ -19,7 +19,7 @@ Tags should be written down in the beginning of the documents. After `MarkdownRe
 
 ## TODO
 
-- [ ] Chapô.
+- [X] Chapô.
 - [ ] Article's picture (thumbnails, alt text...)
 - [ ] Use it and discover annoying things to add/modify.
 - [ ] Use goption instead of args. It's actually basic but it works! \o/
