@@ -6,6 +6,10 @@ public class PlxDocument {
     public string filename {
         get; set; default = "article.xml";
     }
+    
+    public string chapo {
+        get; set;
+    }
 
     public string content {
         get; set;
@@ -51,6 +55,7 @@ public class PlxDocument {
         outfile.printf ("  <title><![CDATA[%s]]></title>\n", title);
         outfile.printf ("  <title_htmltag><![CDATA[%s]]></title_htmltag>\n", title);
         outfile.printf ("  <tags><![CDATA[%s]]></tags>\n", tags);
+        outfile.printf ("  <chapo><![CDATA[%s]]></chapo>\n", chapo);
         outfile.printf ("  <content><![CDATA[%s]]></content>\n", content);
         outfile.printf ("  <date_update><![CDATA[%s]]></date_update>\n", get_date (null));
         outfile.printf ("  <date_creation><![CDATA[%s]]></date_creation>\n", get_date (creation_date));

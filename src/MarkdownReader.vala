@@ -4,16 +4,31 @@ using Markdown;
 
 public class MarkdownReader {  
     const int HEADER_LIMIT = 10;
+    const int CHAPO_LIMIT = 5;
     
+    private string get_html_content(StringBuilder builder) {
+        // TODO: Investigate on these flags.   
+        Document mk = new Document.from_string (builder.data, DocumentFlags.DLEXTRA | DocumentFlags.FENCEDCODE | DocumentFlags.GITHUBTAGS);
+        mk.compile (DocumentFlags.DLEXTRA | DocumentFlags.FENCEDCODE | DocumentFlags.GITHUBTAGS);
+
+        string content;
+        mk.document (out content);
+
+        return content;
+    }
+
     private PlxDocument? parse (FileStream stream) {
+        bool chapo_processed = false;
+        int content_lines = 0;
+        int line_counter = 0;
+        
         StringBuilder builder = new StringBuilder ();
         var plx_doc = new PlxDocument ();
-
-        int counter = 0;
+        
         string line;
         while ((line = stream.read_line ()) != null) {
-            if (counter < HEADER_LIMIT & line[0] == '%') {
-                counter++;
+            if (line_counter < HEADER_LIMIT && line[0] == '%') {
+                line_counter++;
                 var token = line.split (" ", 2);
                 switch (token[0].down ()) {
                     case "%title":
@@ -33,12 +48,12 @@ public class MarkdownReader {
                         plx_doc.creation_date = token[1];
                         break;
                     case "%tags":
-                        print ("Tags: %s\n", token[1]);
+                        //print ("Tags: %s\n", token[1]);
                         plx_doc.tags = token[1];
                         break;
                     case "%filename":
                         print ("Filename: %s\n", token[1]);
-                        plx_doc.tags = token[1];
+                        plx_doc.filename = token[1];
                         break;
                     default:
                         warning ("*** %s *** %s\n", token[0], token[1]);
@@ -48,17 +63,18 @@ public class MarkdownReader {
             else {
                 builder.append (line);
                 builder.append_c ('\n');
+
+                content_lines++;
+
+                // Let's get the first CHAPO_LIMIT lines of text. More line if not empty.
+                if (chapo_processed == false && content_lines > CHAPO_LIMIT && line.length == 0) {
+                    plx_doc.chapo = get_html_content (builder);
+                    chapo_processed = true;
+                }
             }
         }
 
-        Document mk = new Document.from_string (builder.data, DocumentFlags.DLEXTRA | DocumentFlags.FENCEDCODE | DocumentFlags.GITHUBTAGS);
-        mk.compile (DocumentFlags.DLEXTRA | DocumentFlags.FENCEDCODE | DocumentFlags.GITHUBTAGS);
-
-        string content;
-        int val = mk.document (out content);
-        if (val > 0) {
-            plx_doc.content = content;
-        }
+        plx_doc.content = get_html_content (builder);
         return plx_doc;
     }
 
