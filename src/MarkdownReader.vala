@@ -12,7 +12,7 @@ public class MarkdownReader {
         int counter = 0;
         string line;
         while ((line = stream.read_line ()) != null) {
-            if (line[0] == '%' & counter < HEADER_LIMIT) {
+            if (counter < HEADER_LIMIT & line[0] == '%') {
                 counter++;
                 var token = line.split (" ", 2);
                 switch (token[0].down ()) {
@@ -37,7 +37,7 @@ public class MarkdownReader {
                         plx_doc.tags = token[1];
                         break;
                     case "%filename":
-                        print ("Tags: %s\n", token[1]);
+                        print ("Filename: %s\n", token[1]);
                         plx_doc.tags = token[1];
                         break;
                     default:
