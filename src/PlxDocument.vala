@@ -2,11 +2,11 @@ public class PlxDocument {
     public string title {
         get; set; default = "";
     }
-    
+
     public string filename {
         get; set; default = "article.xml";
     }
-    
+
     public string chapo {
         get; set;
     }
@@ -56,7 +56,7 @@ public class PlxDocument {
         if (content == null) {
             return 1;
         }
-        
+
         var outfile = FileStream.open (filename, "w");
         assert (outfile != null);
 
