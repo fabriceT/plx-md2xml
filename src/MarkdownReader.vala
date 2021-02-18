@@ -78,6 +78,18 @@ public class MarkdownReader {
                         print ("* Filename: %s\n", token[1]);
                         plx_doc.filename = token[1];
                         break;
+                    case "thumbnail:":
+                        print ("* Thumbnail: %s\n", token[1]);
+                        plx_doc.thumbnail = token[1];
+                        break;
+                    case "thumbtitle:":
+                        print ("* Thumb. Title: %s\n", token[1]);
+                        plx_doc.thumbnail_title = token[1];
+                        break;
+                    case "thumbtext:":
+                        print ("* Thumb. Text: %s\n", token[1]);
+                        plx_doc.thumbnail_text = token[1];
+                        break;
                     default:
                         warning (" * Unknow token: %s", token[0]);
                         break;

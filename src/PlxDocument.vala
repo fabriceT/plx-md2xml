@@ -27,6 +27,18 @@ public class PlxDocument {
         get; set; default = "";
     }
 
+    public string thumbnail {
+        get; set; default = "";
+    }
+
+    public string thumbnail_title {
+        get; set; default = "";
+    }
+
+    public string thumbnail_text {
+        get; set; default = "";
+    }
+
     public string creation_date {
         get; set; default = get_date (null);
     }
@@ -63,9 +75,9 @@ public class PlxDocument {
         outfile.printf ("  <meta_description><![CDATA[%s]]></meta_description>\n", description);
         outfile.puts ("  <allow_com><![CDATA[1]]></allow_com>\n");
         outfile.puts ("  <template><![CDATA[article.php]]></template>\n");
-        outfile.puts ("  <thumbnail><![CDATA[]]></thumbnail>\n");
-        outfile.puts ("  <thumbnail_alt><![CDATA[]]></thumbnail_alt>\n");
-        outfile.puts ("  <thumbnail_title><![CDATA[]]></thumbnail_title>\n");
+        outfile.printf ("  <thumbnail><![CDATA[%s]]></thumbnail>\n", thumbnail);
+        outfile.printf ("  <thumbnail_title><![CDATA[%s]]></thumbnail_title>\n", thumbnail_title);
+        outfile.printf ("  <thumbnail_alt><![CDATA[%s]]></thumbnail_alt>\n", thumbnail_text);
         outfile.puts ("</document>");
 
         return 0;
