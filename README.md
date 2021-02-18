@@ -6,16 +6,16 @@ Written in Vala, using libmarkdown library (A [Discount](http://www.pell.portlan
 
 ## Markdown metadata.
 
-For the moment, these tags are used (case is useless):
+Header section is delimited by two lines with "---" (like YAML stream).
 
-* %Title       - Title.
-* %Description - HTML Meta Keywords
-* %Keywords    - HTML Meta Keywords
-* %Date        - Creation Date
-* %Tags        - Tags used internally by PluXml (tags clouds, related links...)
-* %Filename    - Path of output file. PluXml filename contains article number, categories, status, title... Kinda complicated to generate offline.
+These tags are managed (character case is useless):
 
-Tags should be written down in the beginning of the documents. After `MarkdownReader.HEADER_LIMIT` lines, they stop to be considerered as part of metadata.
+* Title       - Title.
+* Description - HTML Meta Keywords
+* Keywords    - HTML Meta Keywords
+* Date        - Creation Date
+* Tags        - Tags used internally by PluXml (tags clouds, related links...)
+* Filename    - Path of output file. PluXml filename contains article number, categories, status, title... Kinda complicated to generate offline.
 
 ## TODO
 
