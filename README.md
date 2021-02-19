@@ -17,6 +17,8 @@ These tags are managed (character case is useless):
 * Tags        - Tags used internally by PluXml (tags clouds, related links...)
 * Filename    - Path of output file. PluXml filename contains article number, categories, status, title... Kinda complicated to generate offline.
 
+PluXml binds tags and articles in a file (tags.xml). It's useless to define tags in article, they must be bound with articles in PluXml administration interface.
+
 ## TODO
 
 - [X] Chapô.
