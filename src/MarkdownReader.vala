@@ -86,7 +86,7 @@ public class MarkdownReader {
     }
 
     private PlxDocument? parse (FileStream stream) {
-        ParserStatus parser_status = ParserStatus.NO_HEADER;
+        ParserStatus parser_status = NO_HEADER;
         int content_lines = 0;
 
         StringBuilder builder = new StringBuilder ();
@@ -94,42 +94,42 @@ public class MarkdownReader {
         string line;
         while ((line = stream.read_line ()) != null) {
             switch (parser_status) {
-                case ParserStatus.NO_HEADER:
+                case NO_HEADER:
                     if (line.strip () == HEADER_MARKER) {
                         print ("=== Header starts ===\n");
-                        parser_status = ParserStatus.HEADER;
+                        parser_status = HEADER;
                     }
                     break;
 
-                case ParserStatus.HEADER:
+                case HEADER:
                     if (line.strip () == HEADER_MARKER ) {
                         print ("=== Header ends ===\n");
-                        parser_status = ParserStatus.CHAPO;
+                        parser_status = CHAPO;
                     } else {
                         parse_header (line);
                     }
                     break;
 
-                case ParserStatus.CHAPO:
+                case CHAPO:
                     builder.append (line);
                     builder.append_c ('\n');
                     content_lines++;
 
                     if (content_lines > CHAPO_LIMIT && line.length == 0) {
                         plx_doc.chapo = get_html_content (builder);
-                        parser_status = ParserStatus.CONTENT;
+                        parser_status = CONTENT;
                         print ("=== Chapô ends ===\n");
                     }
                     break;
 
-                case ParserStatus.CONTENT:
+                case CONTENT:
                     builder.append (line);
                     builder.append_c ('\n');
                     break;
             }
         }
 
-        if (parser_status == ParserStatus.HEADER || parser_status == ParserStatus.NO_HEADER) {
+        if (parser_status == HEADER || parser_status == NO_HEADER) {
             error ("Header section is missing or not closed\n");
         }
 
